@@ -45,4 +45,11 @@ public class SimpleIntegratorTests {
 		simpsonsThrown.expect(RuntimeException.class);
 		SimpsonsRule simpsons = new SimpsonsRule(-3 ,2, 5, cubic);
 	}
+	
+	@Test
+	public void simpsonsRuleFewIntervals() {
+		Function quartic = new Function("(x^4) + x");
+		SimpsonsRule simpsons = new SimpsonsRule(4 ,6, 4, quartic);
+		assertEquals(1360.42, simpsons.Integrate(), EPSILON);
+	}
 }
