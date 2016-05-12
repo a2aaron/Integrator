@@ -28,6 +28,10 @@ public class SimpsonsRule extends GenericIntegrator {
 		 * x_2 -> x_4, x_4 -> x_6, and so on.
 		 * Resulting in (f(x_0) + 4 * f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) . . . 
 		 * + 2f(x_n-2) + 4f(x_n-1) + f(x_n)) * deltaX / 6
+		 * 
+		 * Note that the number of parabolas created will be
+		 * numOfIntervals / 2, so 2 intervals = 1 parabola
+		 * and 4 intervals = 2 parabolas. Some on
 		 */
 
 		if (numberOfIntervals % 2 == 1) {

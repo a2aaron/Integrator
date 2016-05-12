@@ -29,6 +29,25 @@ public class SimpleIntegratorTests {
 		assertEquals(-16.25, trapezoid.Integrate(), EPSILON);
 	}
 	
+	public void TrapezoidalSumIsAverage() {
+		/* Since the LH and RH Riemann Sums are
+	 	 * LH: (f(x_0) + f(x_1) ... f(x_n-1)) * deltaX
+	   	 * RH: (f(x_1) ... f(x_n-1) + f(x_n)) * deltaX
+	 	 * We can sum them, producing
+	 	 * ( (f(x_0) + f(x_1)) + (f(x_1) + f(x_2)) ... ) * deltaX
+	 	 * Which means that, since the Trapezoidal Sum is 
+	 	 * ( (f(x_0) + f(x_1)) + (f(x_1) + f(x_2)) ... ) * deltaX / 2
+	 	 * That LH + RH / 2 = Trapezoidal Sum
+		 */ 
+		Function function = new Function("ln(x)+e^x");
+		LeftHandRiemannSum leftHand = new LeftHandRiemannSum(5, 7, 11, function);
+		RightHandRiemannSum rightHand = new RightHandRiemannSum(5 ,7, 11, function);
+		TrapezoidalSum trapezoid = new TrapezoidalSum(5 ,7, 11, function);
+
+		double average = (leftHand.Integrate() + rightHand.Integrate()) / 2;
+		assertEquals(trapezoid.Integrate(), average, EPSILON);
+	}
+	
 	@Test
 	public void simpsonsRuleTest() {
 		Function cubic = new Function("x^3");
@@ -52,4 +71,19 @@ public class SimpleIntegratorTests {
 		SimpsonsRule simpsons = new SimpsonsRule(4 ,6, 4, quartic);
 		assertEquals(1360.42, simpsons.Integrate(), EPSILON);
 	}
+	
+	@Test
+	public void simpsonRuleExact() {
+		// Simpson's rule is exactly accurate on cubic equations.
+		Function cubic = new Function("2*x^3 - 5*x^2 - 4");
+		
+		SimpsonsRule simpsons1 = new SimpsonsRule(-3 ,2, 2, cubic);
+		SimpsonsRule simpsons2 = new SimpsonsRule(-3 ,2, 4, cubic);
+		SimpsonsRule simpsons3 = new SimpsonsRule(-3 ,2, 6, cubic);
+		
+		double EPSILON = 1.0e-7;
+		assertEquals(simpsons1.Integrate(), simpsons2.Integrate(), EPSILON);
+		assertEquals(simpsons1.Integrate(), simpsons3.Integrate(), EPSILON);
+	}
+	
 }
