@@ -8,6 +8,7 @@ import org.junit.rules.ExpectedException;
 
 import integrator.Function;
 import integrator.LeftHandRiemannSum;
+import integrator.MidpointRiemannSum;
 import integrator.RightHandRiemannSum;
 import integrator.SimpsonsRule;
 import integrator.TrapezoidalSum;
@@ -22,11 +23,13 @@ public class SimpleIntegratorTests {
 		Function cubic = new Function("x^3");
 		LeftHandRiemannSum leftHand = new LeftHandRiemannSum(-3 ,2, 10000, cubic);
 		RightHandRiemannSum rightHand = new RightHandRiemannSum(-3 ,2, 10000, cubic);
+		MidpointRiemannSum midPoint = new MidpointRiemannSum(-3 ,2, 10000, cubic);
 		TrapezoidalSum trapezoid = new TrapezoidalSum(-3 ,2, 10000, cubic);
 		
 		assertEquals(-16.25, leftHand.Integrate(), EPSILON);
 		assertEquals(-16.25, rightHand.Integrate(), EPSILON);
 		assertEquals(-16.25, trapezoid.Integrate(), EPSILON);
+		assertEquals(-16.25, midPoint.Integrate(), EPSILON);
 	}
 	
 	public void TrapezoidalSumIsAverage() {
