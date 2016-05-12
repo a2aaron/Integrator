@@ -1,12 +1,12 @@
 package integrator;
 
-public class LeftHandRiemannSum extends GenericIntegrator {
+public class MidpointRiemannSum extends GenericIntegrator {
 	
-	public LeftHandRiemannSum() {
+	public MidpointRiemannSum() {
 		super();
 	}
 	
-	public LeftHandRiemannSum(double start, double end, int numberOfIntervals, Function function) {
+	public MidpointRiemannSum(double start, double end, int numberOfIntervals, Function function) {
 		super(start, end, numberOfIntervals, function);
 	}
 	
@@ -15,6 +15,6 @@ public class LeftHandRiemannSum extends GenericIntegrator {
 	}
 	
 	public double specificSum(double x, Function function, double deltaX) {
-	    return function.evaluate(x) * deltaX;
+	    return function.evaluate(x + (deltaX / 2)) * deltaX;
 	}
 }
